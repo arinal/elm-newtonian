@@ -20,6 +20,9 @@ unit v =
     in
         Vector (m / v.x) (m / v.y)
 
+neg : Vector -> Vector
+neg v = Vector -v.x -v.y
+
 
 (<+>) : Vector -> Vector -> Vector
 (<+>) v1 v2 =
@@ -33,7 +36,7 @@ add =
 
 (<->) : Vector -> Vector -> Vector
 (<->) v1 v2 =
-    Vector (v1.x - v2.x) (v1.y - v2.y)
+    v1 <+> (neg v2)
 
 
 sub : Vector -> Vector -> Vector
