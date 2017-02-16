@@ -7,21 +7,19 @@ type alias Vector =
     }
 
 
+original : Vector
+original =
+    Vector 0 0
+
+
 magnitude : Vector -> Float
 magnitude v =
-    sqrt (v.x ^ 2 - v.y ^ 2)
+    sqrt (v.x ^ 2 + v.y ^ 2)
 
-
-unit : Vector -> Vector
-unit v =
-    let
-        m =
-            magnitude v
-    in
-        Vector (m / v.x) (m / v.y)
 
 neg : Vector -> Vector
-neg v = Vector -v.x -v.y
+neg v =
+    Vector -v.x -v.y
 
 
 (<+>) : Vector -> Vector -> Vector
@@ -73,6 +71,7 @@ cross =
 (<*) v c =
     c *> v
 
+
 (/>) : Float -> Vector -> Vector
 (/>) c v =
     Vector (v.x / c) (v.y / c)
@@ -81,3 +80,8 @@ cross =
 (</) : Vector -> Float -> Vector
 (</) v c =
     c /> v
+
+
+unit : Vector -> Vector
+unit v =
+    v </ (magnitude v)
