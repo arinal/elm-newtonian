@@ -1,7 +1,8 @@
 # elm-newtonian
 
-Finally, solar system animation in your browser! Every planet movement is calculated using Newtonian gravity equation, enjoy!
-This application is simple, very ideal if you want to start learning elm with enjoyment :)
+Finally, solar system animation in your browser! Every planet movement is calculated using Newtonian gravity equation.
+
+This application is simple, mean to be an ideal case study if you want to start learning elm with enjoyment :)
 
 ## Getting started
 
