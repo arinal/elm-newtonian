@@ -7,8 +7,8 @@ type alias Vector =
     }
 
 
-original : Vector
-original =
+origin : Vector
+origin =
     Vector 0 0
 
 

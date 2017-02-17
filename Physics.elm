@@ -3,14 +3,15 @@ module Physics exposing (..)
 import Vector exposing (..)
 
 
--- v0 + ∮v.dt
-
-
-smallIntegral : Vector -> Float -> Vector -> Vector
-smallIntegral vo dt v =
+{-| Equivalent to ` v0 + ∮v.dt `
+    Assuming dt is small, v(t) become constant and integration is reduced into multiplication
+-}
+smallIntegral : Vector -> Vector -> Float -> Vector
+smallIntegral vo v dt =
     vo <+> (v <* dt)
 
 
+(∮) : Vector -> Vector -> Float -> Vector
 (∮) =
     smallIntegral
 
@@ -47,38 +48,38 @@ gravityAccel body body1 =
             unit distanceVect
     in
         if distance < 0.1 then
-            original
+            Vector.origin
         else
             (gravityConstant * body1.mass / distance) *> unitDirection
 
 
-nextBodyAccel : List PointBody -> PointBody -> PointBody
-nextBodyAccel bodies body =
+applyForce : List PointBody -> PointBody -> PointBody
+applyForce bodies body =
     let
         resultant =
             bodies
                 |> List.map (gravityAccel body)
-                |> List.foldl (<+>) Vector.original
+                |> List.foldl (<+>) Vector.origin
     in
         { body | acceleration = resultant }
 
 
-nextBodyFrame : Float -> PointBody -> PointBody
-nextBodyFrame dt body =
+nextPosition : Float -> PointBody -> PointBody
+nextPosition dt body =
     let
-        pos =
+        nextPos =
             smallIntegral
                 body.position
-                dt
                 body.velocity
+                dt
 
-        v =
+        nextV =
             smallIntegral
                 body.velocity
-                dt
                 body.acceleration
+                dt
     in
-        { body | position = pos, velocity = v }
+        { body | position = nextPos, velocity = nextV }
 
 
 nextFrame : Float -> InertialFrame -> InertialFrame
@@ -86,6 +87,6 @@ nextFrame dt frame =
     { frame
         | bodies =
             frame.bodies
-                |> List.map (nextBodyAccel frame.bodies)
-                |> List.map (nextBodyFrame dt)
+                |> List.map (applyForce frame.bodies)
+                |> List.map (nextPosition dt)
     }
