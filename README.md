@@ -4,13 +4,13 @@
 
 Finally, a solar system animation in your browser! Every planet movement is calculated using Newtonian gravity equation.
 
-This application is simple, meant to be an ideal case study if you want to start learning elm with enjoyment!
+This application is simple, meant to be an ideal case study if you want to start learning elm.
 
 ## Getting started
 
 If elm hasn't been installed in your system, install it [here](https://guide.elm-lang.org/install.html)
 
-Afterwards, type this in your terminal:
+Afterwards, type this on your terminal:
 ``` shellsession
 $ git clone https://github.com/arinal/elm-newtonian.git
 $ cd elm-newtonian
